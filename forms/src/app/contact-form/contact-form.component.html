@@ -1,0 +1,41 @@
+<form (ngSubmit)="registerFrm()" [formGroup]="regForm">
+    <div class="mb-3">
+      <label for="exampleInputEmail1" class="form-label">Email address</label>
+      <input 
+      type="email" 
+      class="form-control" 
+      formControlName="email"
+      >
+    <!--Email validation-->
+    <ng-container 
+    *ngIf="regForm.controls?.['email']?.touched && 
+    regForm.controls?.['email']?.dirty && 
+    regForm.controls?.['email']?.errors 
+    ">
+      <div class="alert alert-danger"  *ngIf="regForm.get('email')?.errors?.['required']">
+        *Fields required.
+      </div>
+      <div class="alert alert-danger"  *ngIf="regForm.get('email')?.errors?.['email']">
+        *Please enter valid email.
+      </div>
+    </ng-container>
+
+      <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+    </div>
+
+    <div class="mb-3">
+      <label for="exampleInputPassword1" class="form-label">Password</label>
+      <input 
+      type="password"
+      class="form-control"
+      formControlName="password"
+      >
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="regForm.invalid">Submit</button>
+  </form>
+
+
+  <div class="card border p-2 mt-2 shadow-sm">
+    Form content : {{ regForm.value | json }} <br>
+    Form valid : {{ regForm.valid | json }}
+  </div>
